@@ -44,6 +44,7 @@ public class TextFunkifierTest {
 
     @Test
     public void testCustomString() {
-
+    	RemoveVowelsString rvs = new RemoveVowelsString("This is also also a test");
+    	assertEquals("ths s ls ls  tst", rvs.funkifyText());
     }
 }
