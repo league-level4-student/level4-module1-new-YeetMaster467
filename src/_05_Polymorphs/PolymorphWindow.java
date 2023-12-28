@@ -5,6 +5,8 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Random;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -59,8 +61,11 @@ public class PolymorphWindow extends JPanel implements ActionListener {
 
     private JFrame window;
     private Timer timer;
+    
+    private Random r = new Random();
 
-    Polymorph bluePoly;
+    
+    ArrayList<Polymorph> morphs = new ArrayList<Polymorph>();
 
     public static void main(String[] args) {
         new PolymorphWindow().buildWindow();
@@ -73,8 +78,22 @@ public class PolymorphWindow extends JPanel implements ActionListener {
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.pack();
         window.setVisible(true);
-
-        bluePoly = new BluePolymorph(50, 50);
+        
+        for (int i = 0; i < 25; i++) {
+        	
+        	if (i == 13) {
+        		morphs.add(new MouseFollowMorph(r.nextInt(500), r.nextInt(500), 50, 50));
+        	} else if (i % 5 == 0) {
+        		morphs.add(new PopupMorph(r.nextInt(500), r.nextInt(500), 50, 50));
+        	} else if (i % 3 == 0) {
+        		morphs.add(new MovingMorph(r.nextInt(500), r.nextInt(500), 50, 50));
+        	} else if (i % 2 == 0) {
+        		morphs.add(new BluePolymorph(r.nextInt(500), r.nextInt(500), 50, 50));
+        	} else {
+        		morphs.add(new RedPolymorph(r.nextInt(500), r.nextInt(500), 50, 50));
+        	}
+        	
+        }
 
         timer = new Timer(1000 / 30, this);
         timer.start();
@@ -86,13 +105,12 @@ public class PolymorphWindow extends JPanel implements ActionListener {
         g.fillRect(0, 0, 500, 500);
 
         // draw polymorph
-        bluePoly.draw(g);
+       
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         repaint();
-        bluePoly.update();
-
+       
     }
 }
