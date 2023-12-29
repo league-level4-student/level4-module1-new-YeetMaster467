@@ -5,6 +5,8 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -81,10 +83,12 @@ public class PolymorphWindow extends JPanel implements ActionListener {
         
         for (int i = 0; i < 25; i++) {
         	
-        	if (i == 13) {
+        	if (i % 11 == 0) {
         		morphs.add(new MouseFollowMorph(r.nextInt(500), r.nextInt(500), 50, 50));
+        	    window.addMouseMotionListener((MouseMotionListener) morphs.get(i));
         	} else if (i % 5 == 0) {
         		morphs.add(new PopupMorph(r.nextInt(500), r.nextInt(500), 50, 50));
+        		window.addMouseListener((MouseListener) morphs.get(i));
         	} else if (i % 3 == 0) {
         		morphs.add(new MovingMorph(r.nextInt(500), r.nextInt(500), 50, 50));
         	} else if (i % 2 == 0) {
@@ -106,11 +110,17 @@ public class PolymorphWindow extends JPanel implements ActionListener {
 
         // draw polymorph
        
+        for (int i = 0; i < morphs.size(); i++) {
+        	morphs.get(i).draw(g);
+        }
+        
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         repaint();
-       
+        for (int i = 0; i < morphs.size(); i++) {
+        	morphs.get(i).update();
+        }
     }
 }

@@ -21,8 +21,8 @@ public class PopupMorph extends Polymorph implements MouseListener {
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		if (e.getX() > getWidth() && e.getX() < getWidth() + 50 && e.getY() > getHeight() && e.getY() < getHeight() + 50) {
-			JOptionPane.showMessageDialog(null, "Yo wassup");
+		if (e.getX() > getX() && e.getX() < getX() + getWidth() && e.getY() > getY() && e.getY() < getY() + getHeight() ) {
+			JOptionPane.showMessageDialog(null, "popup ( ͡° ͜ʖ ͡°)");
 		}
 	}
 

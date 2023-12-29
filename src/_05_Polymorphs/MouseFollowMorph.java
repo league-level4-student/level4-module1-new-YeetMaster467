@@ -6,14 +6,18 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 
 public class MouseFollowMorph extends Polymorph implements MouseMotionListener {
-
+	
+	int mouseX = 0;
+	int mouseY = 0;
+	
 	public MouseFollowMorph(int x, int y, int width, int height) {
 		super(x, y, width, height);
 	}
 
 	@Override
 	public void update() {
-		
+		setX(mouseX);
+		setY(mouseY);
 	}
 
 	@Override
@@ -29,8 +33,8 @@ public class MouseFollowMorph extends Polymorph implements MouseMotionListener {
 
 	@Override
 	public void mouseMoved(MouseEvent e) {
-		setX(e.getX());
-		setY(e.getY());
+		mouseX = e.getX();
+		mouseY = e.getY();
 	}
 
 }
